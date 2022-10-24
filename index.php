@@ -1,5 +1,6 @@
 <?php
 session_start();
+require 'db-functions.php';
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -66,8 +67,13 @@ session_start();
 						echo " 0 produit";
 					}
 				
-				echo $recipesStatement = $db->prepare('SELECT * FROM store')
-				?>
+				$stmt = connection()->prepare('SELECT name FROM store');
+				// var_dump($stmt);
+				$stmt->execute();
+				$recipes = $stmt->fetchAll();
+				// echo $recipes[0]['name']; affiche fraises de la BDD
+?>
+
 
 				<div class='cursor-pointer text-white bg-blue-700 hover:bg-emerald-800 font-medium rounded-lg text-sm py-2.5 text-center dark:bg-blue-500 dark:hover:emerald-700 dark:focus:ring-blue-800 mt-5 w-48 pl-0'>
 					<i class="fa-solid fa-basket-shopping"></i><span>&ensp;</span><input class='cursor-pointer' type="submit" name="submit" value="Ajouter le produit" >
