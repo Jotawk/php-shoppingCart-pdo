@@ -65,7 +65,10 @@ session_start();
 					} else {
 						echo " 0 produit";
 					}
+				
+				echo $recipesStatement = $db->prepare('SELECT * FROM store')
 				?>
+
 				<div class='cursor-pointer text-white bg-blue-700 hover:bg-emerald-800 font-medium rounded-lg text-sm py-2.5 text-center dark:bg-blue-500 dark:hover:emerald-700 dark:focus:ring-blue-800 mt-5 w-48 pl-0'>
 					<i class="fa-solid fa-basket-shopping"></i><span>&ensp;</span><input class='cursor-pointer' type="submit" name="submit" value="Ajouter le produit" >
 				</div>
