@@ -24,10 +24,13 @@ function findAll() {
 	$requestProducts->execute();
 	$recipes = $requestProducts->fetchAll();
 	for ($i = 0; $i < count($recipes); $i++) { 
-		echo "<h2><a href='#'>".$recipes[$i]['name']."</a></h2>";
+		$id = $recipes[$i]["id"];
+		echo "<h2><a href='./product.php?id={$id}'>".$recipes[$i]['name']."</a></h2>";
+		if ($_SERVER['REQUEST_URI'] == '/index.php') { // vérifie cette condition uniquement quand on est sur l'index.php
 		echo substr($recipes[$i]['description'], 0, 50);
-		if($_SERVER['REQUEST_URI'] == '/') { // vérifie cette condition uniquement sur l'index
 		echo mb_strlen($recipes[$i]['description']) > 50 ? "...<br><br>" : "<br><br>";
+		} else {
+			echo $recipes[$i]['description'];
 		}
 		echo "<strong>".number_format($recipes[$i]['price'], 2, ',', ' ')." €</strong><br><br>";
 		echo "<a href='#'>Ajouter au panier</a>";
@@ -40,7 +43,9 @@ function findOneById($id) {
 		[":id" => $id]
 	);
 	$product = $requestProduct->fetch();
-	return $product;
+	echo "<a href='./index.php'>Retour</a><h2>".$product['name']."</h2>";
+	echo $product['description']."<br><br>";
+	echo "<strong>".number_format($product['price'], 2, ',', ' '). "€</strong>";
 }
 
 function insertProduct($name, $descr, $price) {
