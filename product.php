@@ -1,5 +1,7 @@
 <?php
 require_once 'db-functions.php';
 
-$id = $_GET['id'];
-echo findOneById($id);
+if (isset($_GET['id'])) {
+	$id = $_GET['id'];
+	echo findOneById($id);
+}
