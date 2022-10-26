@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once 'db-functions.php';
+findAll();
 
 if (isset($_GET["action"])) {
 
@@ -10,7 +11,30 @@ if (isset($_GET["action"])) {
 	$name = (isset($_GET["name"])) ? $_GET["name"] : "";
 	$qtt = 1;
 
+
+
 	switch($action) {
+		case "ajouterProduitPost":
+			if (isset($_POST['submit'])) {
+				$name = filter_input(INPUT_POST, "name", FILTER_SANITIZE_SPECIAL_CHARS);
+				$descr = filter_input(INPUT_POST, "descr", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+				$price = filter_input(INPUT_POST, "price", FILTER_VALIDATE_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+				if ($name && $price && $descr)  {
+					insertProduct($name, $descr, $price);
+					$product = [
+						"name" => $name,
+						"descr" => $descr,
+						"price" => $price,
+						"qtt" => $qtt,
+						"total" => $price * $qtt
+					];
+		
+					$_SESSION['products'][] = $product;
+				}
+			}
+				header("location:recap.php");	
+		break;
+	
 		case "ajouterProduit":
 			$product = [
 				"name" => $name,
@@ -52,10 +76,4 @@ if (isset($_GET["action"])) {
 		break;
 	
 	}
-	
-	
-	
-	
 }
-
-
