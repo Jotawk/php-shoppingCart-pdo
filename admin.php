@@ -59,14 +59,14 @@ require 'db-functions.php';
 						<input type="number" name="qtt" value="1" min="0" class="border-2 border-slate-900 p-1 mb-6">
 					</label>
 				</p>
-
+				<textarea class="border-2 border-black" name="textarea" id="textarea" cols="30" rows="5" placeholder="Insérez la description du produit" required></textarea>
 				<p class='mt-1'>Il y a 
 				<?php if(isset($_SESSION["products"])) {
 						echo count($_SESSION["products"]) . " produits dans le panier</p>";	
 					} else {
 						echo " 0 produit";
 					}
-?>
+				?>
 
 				<div class='cursor-pointer text-white bg-blue-700 hover:bg-emerald-800 font-medium rounded-lg text-sm py-2.5 text-center dark:bg-blue-500 dark:hover:emerald-700 dark:focus:ring-blue-800 mt-5 w-48 pl-0'>
 					<i class="fa-solid fa-basket-shopping"></i><span>&ensp;</span><input class='cursor-pointer' type="submit" name="submit" value="Ajouter le produit" >
