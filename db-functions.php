@@ -26,14 +26,14 @@ function findAll() {
 	for ($i = 0; $i < count($recipes); $i++) { 
 		$id = $recipes[$i]["id"];
 		echo "<h2><a href='./product.php?id={$id}'>".$recipes[$i]['name']."</a></h2>";
-		if ($_SERVER['REQUEST_URI'] == '/index.php') { // vérifie cette condition uniquement quand on est sur l'index.php
+		if ($_SERVER['REQUEST_URI'] == '/index.php' || '/') { // vérifie cette condition uniquement quand on est sur l'index.php
 		echo substr($recipes[$i]['description'], 0, 50);
 		echo mb_strlen($recipes[$i]['description']) > 50 ? "...<br><br>" : "<br><br>";
 		} else {
 			echo $recipes[$i]['description'];
 		}
 		echo "<strong>".number_format($recipes[$i]['price'], 2, ',', ' ')." €</strong><br><br>";
-		echo "<a href='#'>Ajouter au panier</a>";
+		echo "<a href='./traitement.php?action=ajouterProduit&id=$id'>Ajouter au panier</a>";
 	}
 }
 
