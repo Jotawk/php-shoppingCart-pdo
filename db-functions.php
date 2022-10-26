@@ -53,6 +53,9 @@ function insertProduct($name, $descr, $price) {
 			":name" => $name,
 			":description" => $descr,
 			":price" => $price
-		]
-	);
-}
+			]
+		);
+		var_dump($insertProduct);
+		var_dump(connection()->lastInsertId());
+		die;
+	}

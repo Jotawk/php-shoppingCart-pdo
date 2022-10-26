@@ -32,7 +32,10 @@ if (isset($_GET["action"])) {
 					$_SESSION['products'][] = $product;
 				}
 			}
-				header("location:recap.php");	
+			
+			echo 'Last Insert ID: '.$last_insert_id;
+			die();
+			header("location:recap.php");	
 		break;
 	
 		case "ajouterProduit":
