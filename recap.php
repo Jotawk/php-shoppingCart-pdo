@@ -20,7 +20,7 @@ unset($_SESSION['error']);
 	require 'menu.php';
 	require 'functions.php';
 	echo showMessage();
-	
+		
 	if (!isset($_SESSION['products']) || empty($_SESSION['products'])) {
 		echo "<p class='mt-8'>Aucun produit en session...</p>";
 	} else {

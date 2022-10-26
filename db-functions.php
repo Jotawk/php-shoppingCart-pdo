@@ -19,22 +19,11 @@ function connection() {
 	}
 }
 
-function findAll() { 
+function findAll()  { 
 	$requestProducts = connection()->prepare('SELECT * FROM store');
 	$requestProducts->execute();
 	$recipes = $requestProducts->fetchAll();
-	for ($i = 0; $i < count($recipes); $i++) { 
-		$id = $recipes[$i]["id"];
-		echo "<h2><a href='./product.php?id={$id}'>".$recipes[$i]['name']."</a></h2>";
-		if ($_SERVER['REQUEST_URI'] == '/index.php' || '/') { // vérifie cette condition uniquement quand on est sur l'index.php
-		echo substr($recipes[$i]['description'], 0, 50);
-		echo mb_strlen($recipes[$i]['description']) > 50 ? "...<br><br>" : "<br><br>";
-		} else {
-			echo $recipes[$i]['description'];
-		}
-		echo "<strong>".number_format($recipes[$i]['price'], 2, ',', ' ')." €</strong><br><br>";
-		echo "<a href='./traitement.php?action=ajouterProduit&id=$id'>Ajouter au panier</a>";
-	}
+	return $recipes;
 }
 
 function findOneById($id) {
@@ -46,6 +35,15 @@ function findOneById($id) {
 	echo "<a href='./index.php'>Retour</a><h2>".$product['name']."</h2>";
 	echo $product['description']."<br><br>";
 	echo "<strong>".number_format($product['price'], 2, ',', ' '). "€</strong>";
+}
+
+function findOneByIdwithoutStr($id) {
+	$requestProduct = connection()->prepare("SELECT * FROM store WHERE id=:id");
+	$requestProduct->execute(
+		[":id" => $id]
+	);
+	$product = $requestProduct->fetch();
+	return $product;
 }
 
 function insertProduct($name, $descr, $price) {
